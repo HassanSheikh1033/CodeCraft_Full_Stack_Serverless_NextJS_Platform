@@ -10,7 +10,7 @@ import { useClerk } from "@clerk/nextjs";
 import { EditorPanelSkeleton } from "./EditorPanelSkeleton";
 import useMounted from "@/hooks/useMounted";
 import ShareSnippetDialog from "./ShareSnippetDialog";
-import { editor as MonacoEditor } from "monaco-editor";
+// import { editor as MonacoEditor } from "monaco-editor";
 
 function EditorPanel() {
   const clerk = useClerk();
