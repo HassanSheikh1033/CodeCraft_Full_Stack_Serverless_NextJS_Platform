@@ -116,7 +116,7 @@ function EditorPanel() {
               onChange={handleEditorChange}
               theme={theme}
               beforeMount={defineMonacoThemes}
-              onMount={(monacoEditor, monaco) => {
+              onMount={(monacoEditor) => {
                 setEditor(monacoEditor); // Properly store editor instance
               }}
               options={{
