@@ -10,6 +10,7 @@ import { useClerk } from "@clerk/nextjs";
 import { EditorPanelSkeleton } from "./EditorPanelSkeleton";
 import useMounted from "@/hooks/useMounted";
 import ShareSnippetDialog from "./ShareSnippetDialog";
+import { editor as MonacoEditor } from "monaco-editor";
 
 function EditorPanel() {
   const clerk = useClerk();
@@ -19,9 +20,11 @@ function EditorPanel() {
   const mounted = useMounted();
 
   useEffect(() => {
-    const savedCode = localStorage.getItem(`editor-code-${language}`);
-    const newCode = savedCode || LANGUAGE_CONFIG[language].defaultCode;
-    if (editor) editor.setValue(newCode);
+    if (editor) {
+      const savedCode = localStorage.getItem(`editor-code-${language}`);
+      const newCode = savedCode || LANGUAGE_CONFIG[language].defaultCode;
+      editor.setValue(newCode); // Now setValue() works correctly
+    }
   }, [language, editor]);
 
   useEffect(() => {
@@ -113,7 +116,9 @@ function EditorPanel() {
               onChange={handleEditorChange}
               theme={theme}
               beforeMount={defineMonacoThemes}
-              onMount={(editor) => setEditor(editor)}
+              onMount={(monacoEditor, monaco) => {
+                setEditor(monacoEditor); // Properly store editor instance
+              }}
               options={{
                 minimap: { enabled: false },
                 fontSize,
